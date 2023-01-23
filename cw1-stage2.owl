@@ -1,0 +1,368 @@
+@prefix : <http://www.semanticweb.org/wattTours/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix wattTours: <http://www.semanticweb.org/wattTours/> .
+@base <http://www.semanticweb.org/wattTours> .
+
+<http://www.semanticweb.org/wattTours> rdf:type owl:Ontology ;
+                                        dcterms:creator """Zaid Parkar
+Hitesh Manani
+Anas Patel
+Harshal Thachhapully"""@en .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/description
+dcterms:description rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/license
+dcterms:license rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/title
+dcterms:title rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/wattTours/capitalOf
+wattTours:capitalOf rdf:type owl:ObjectProperty ;
+                    rdfs:domain wattTours:City ;
+                    rdfs:range wattTours:Country .
+
+
+###  http://www.semanticweb.org/wattTours/locatedIn
+wattTours:locatedIn rdf:type owl:ObjectProperty ;
+                    rdfs:domain wattTours:City ;
+                    rdfs:range wattTours:Country .
+
+
+###  http://www.semanticweb.org/wattTours/visitedBy
+wattTours:visitedBy rdf:type owl:ObjectProperty ;
+                    rdfs:domain wattTours:Country ;
+                    rdfs:range wattTours:Tour .
+
+
+###  http://www.semanticweb.org/wattTours/visits
+wattTours:visits rdf:type owl:ObjectProperty ;
+                 rdfs:domain wattTours:Tour ;
+                 rdfs:range wattTours:City .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/wattTours/name
+wattTours:name rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/wattTours/tourDuration
+wattTours:tourDuration rdf:type owl:DatatypeProperty ;
+                       rdfs:domain wattTours:Tour ;
+                       rdfs:range xsd:positiveInteger .
+
+
+###  http://www.semanticweb.org/wattTours/wikiCode
+wattTours:wikiCode rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/wattTours/America
+wattTours:America rdf:type owl:Class ;
+                  rdfs:subClassOf wattTours:Country .
+
+
+###  http://www.semanticweb.org/wattTours/AmericanTour
+wattTours:AmericanTour rdf:type owl:Class ;
+                       owl:equivalentClass [ owl:intersectionOf ( wattTours:Tour
+                                                                  [ rdf:type owl:Restriction ;
+                                                                    owl:onProperty wattTours:visits ;
+                                                                    owl:someValuesFrom wattTours:America
+                                                                  ]
+                                                                ) ;
+                                             rdf:type owl:Class
+                                           ] ;
+                       rdfs:subClassOf wattTours:Tour .
+
+
+###  http://www.semanticweb.org/wattTours/Asia
+wattTours:Asia rdf:type owl:Class ;
+               rdfs:subClassOf wattTours:Country .
+
+
+###  http://www.semanticweb.org/wattTours/AsianTour
+wattTours:AsianTour rdf:type owl:Class ;
+                    owl:equivalentClass [ owl:intersectionOf ( wattTours:Tour
+                                                               [ rdf:type owl:Restriction ;
+                                                                 owl:onProperty wattTours:visits ;
+                                                                 owl:someValuesFrom wattTours:Asia
+                                                               ]
+                                                             ) ;
+                                          rdf:type owl:Class
+                                        ] ;
+                    rdfs:subClassOf wattTours:Tour .
+
+
+###  http://www.semanticweb.org/wattTours/Capital
+wattTours:Capital rdf:type owl:Class ;
+                  owl:equivalentClass [ rdf:type owl:Restriction ;
+                                        owl:onProperty wattTours:capitalOf ;
+                                        owl:someValuesFrom wattTours:Country
+                                      ] ;
+                  rdfs:subClassOf wattTours:City ;
+                  owl:disjointWith wattTours:NonCapital .
+
+
+###  http://www.semanticweb.org/wattTours/City
+wattTours:City rdf:type owl:Class ;
+               rdfs:subClassOf wattTours:Tourism .
+
+
+###  http://www.semanticweb.org/wattTours/Country
+wattTours:Country rdf:type owl:Class ;
+                  rdfs:subClassOf wattTours:Tourism .
+
+
+###  http://www.semanticweb.org/wattTours/Europe
+wattTours:Europe rdf:type owl:Class ;
+                 rdfs:subClassOf wattTours:Country .
+
+
+###  http://www.semanticweb.org/wattTours/EuropeanTour
+wattTours:EuropeanTour rdf:type owl:Class ;
+                       owl:equivalentClass [ owl:intersectionOf ( wattTours:Tour
+                                                                  [ rdf:type owl:Restriction ;
+                                                                    owl:onProperty wattTours:visits ;
+                                                                    owl:someValuesFrom wattTours:Europe
+                                                                  ]
+                                                                ) ;
+                                             rdf:type owl:Class
+                                           ] ;
+                       rdfs:subClassOf wattTours:Tour .
+
+
+###  http://www.semanticweb.org/wattTours/NonCapital
+wattTours:NonCapital rdf:type owl:Class ;
+                     rdfs:subClassOf wattTours:City .
+
+
+###  http://www.semanticweb.org/wattTours/Tour
+wattTours:Tour rdf:type owl:Class ;
+               rdfs:subClassOf wattTours:Tourism .
+
+
+###  http://www.semanticweb.org/wattTours/Tourism
+wattTours:Tourism rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/wattTours/Bangkok
+wattTours:Bangkok rdf:type owl:NamedIndividual ,
+                           wattTours:Capital ;
+                  wattTours:capitalOf wattTours:Thailand ;
+                  wattTours:locatedIn wattTours:Thailand ;
+                  wattTours:name "Bangkok"@en ;
+                  wattTours:wikiCode "Q1861" .
+
+
+###  http://www.semanticweb.org/wattTours/Barcelona
+wattTours:Barcelona rdf:type owl:NamedIndividual ,
+                             wattTours:NonCapital ;
+                    wattTours:locatedIn wattTours:Spain ;
+                    wattTours:name "Barcelona"@en ;
+                    wattTours:wikiCode "Q1492" .
+
+
+###  http://www.semanticweb.org/wattTours/India
+wattTours:India rdf:type owl:NamedIndividual ,
+                         wattTours:Asia ;
+                wattTours:visitedBy wattTours:TourIndia ;
+                wattTours:name "India"@en ;
+                wattTours:wikiCode "Q668" .
+
+
+###  http://www.semanticweb.org/wattTours/Jaipur
+wattTours:Jaipur rdf:type owl:NamedIndividual ,
+                          wattTours:NonCapital ;
+                 wattTours:locatedIn wattTours:India ;
+                 wattTours:name "Jaipur"@en ;
+                 wattTours:wikiCode "Q66485" .
+
+
+###  http://www.semanticweb.org/wattTours/Krabi
+wattTours:Krabi rdf:type owl:NamedIndividual ,
+                         wattTours:NonCapital ;
+                wattTours:locatedIn wattTours:Thailand ;
+                wattTours:name "Krabi"@en ;
+                wattTours:wikiCode "Q236769" .
+
+
+###  http://www.semanticweb.org/wattTours/LosAngeles
+wattTours:LosAngeles rdf:type owl:NamedIndividual ,
+                              wattTours:NonCapital ;
+                     wattTours:locatedIn wattTours:UnitedStates ;
+                     wattTours:name "LosAngeles"@en ;
+                     wattTours:wikiCode "Q65" .
+
+
+###  http://www.semanticweb.org/wattTours/Madrid
+wattTours:Madrid rdf:type owl:NamedIndividual ,
+                          wattTours:Capital ;
+                 wattTours:capitalOf wattTours:Spain ;
+                 wattTours:locatedIn wattTours:Spain ;
+                 wattTours:name "Madrid"@en ;
+                 wattTours:wikiCode "Q2807" .
+
+
+###  http://www.semanticweb.org/wattTours/Mumbai
+wattTours:Mumbai rdf:type owl:NamedIndividual ,
+                          wattTours:NonCapital ;
+                 wattTours:locatedIn wattTours:India ;
+                 wattTours:name "Mumbai"@en ;
+                 wattTours:wikiCode "Q1156" .
+
+
+###  http://www.semanticweb.org/wattTours/NewDelhi
+wattTours:NewDelhi rdf:type owl:NamedIndividual ,
+                            wattTours:Capital ;
+                   wattTours:capitalOf wattTours:India ;
+                   wattTours:locatedIn wattTours:India ;
+                   wattTours:name "NewDelhi"@en ;
+                   wattTours:wikiCode "Q987" .
+
+
+###  http://www.semanticweb.org/wattTours/Phuket
+wattTours:Phuket rdf:type owl:NamedIndividual ,
+                          wattTours:NonCapital ;
+                 wattTours:locatedIn wattTours:Thailand ;
+                 wattTours:name "Phuket"@en ;
+                 wattTours:wikiCode "Q182565" .
+
+
+###  http://www.semanticweb.org/wattTours/SanFrancisco
+wattTours:SanFrancisco rdf:type owl:NamedIndividual ,
+                                wattTours:NonCapital ;
+                       wattTours:locatedIn wattTours:UnitedStates ;
+                       wattTours:name "SanFrancisco"@en ;
+                       wattTours:wikiCode "Q62" .
+
+
+###  http://www.semanticweb.org/wattTours/Seville
+wattTours:Seville rdf:type owl:NamedIndividual ,
+                           wattTours:NonCapital ;
+                  wattTours:locatedIn wattTours:Spain ;
+                  wattTours:name "Seville"@en ;
+                  wattTours:wikiCode "Q8717" .
+
+
+###  http://www.semanticweb.org/wattTours/Spain
+wattTours:Spain rdf:type owl:NamedIndividual ,
+                         wattTours:Europe ;
+                wattTours:visitedBy wattTours:TourSpain ;
+                wattTours:name "Spain"@en ;
+                wattTours:wikiCode "Q29" .
+
+
+###  http://www.semanticweb.org/wattTours/Thailand
+wattTours:Thailand rdf:type owl:NamedIndividual ,
+                            wattTours:Asia ;
+                   wattTours:visitedBy wattTours:TourThailand ;
+                   wattTours:name "Thailand" ;
+                   wattTours:wikiCode "Q869" .
+
+
+###  http://www.semanticweb.org/wattTours/TourAmerica
+wattTours:TourAmerica rdf:type owl:NamedIndividual ,
+                               wattTours:AmericanTour ;
+                      wattTours:visits wattTours:LosAngeles ,
+                                       wattTours:SanFrancisco ,
+                                       wattTours:WashingtonDC ;
+                      wattTours:tourDuration 10 .
+
+
+###  http://www.semanticweb.org/wattTours/TourIndia
+wattTours:TourIndia rdf:type owl:NamedIndividual ,
+                             wattTours:AsianTour ;
+                    wattTours:visits wattTours:Jaipur ,
+                                     wattTours:Mumbai ,
+                                     wattTours:NewDelhi ;
+                    wattTours:tourDuration 14 .
+
+
+###  http://www.semanticweb.org/wattTours/TourSpain
+wattTours:TourSpain rdf:type owl:NamedIndividual ,
+                             wattTours:EuropeanTour ;
+                    wattTours:visits wattTours:Barcelona ,
+                                     wattTours:Madrid ,
+                                     wattTours:Seville ;
+                    wattTours:tourDuration 9 .
+
+
+###  http://www.semanticweb.org/wattTours/TourThailand
+wattTours:TourThailand rdf:type owl:NamedIndividual ,
+                                wattTours:AsianTour ;
+                       wattTours:visits wattTours:Bangkok ,
+                                        wattTours:Krabi ,
+                                        wattTours:Phuket ;
+                       wattTours:tourDuration 7 .
+
+
+###  http://www.semanticweb.org/wattTours/UnitedStates
+wattTours:UnitedStates rdf:type owl:NamedIndividual ,
+                                wattTours:America ;
+                       wattTours:visitedBy wattTours:TourAmerica ;
+                       wattTours:name "UnitedStates"@en ;
+                       wattTours:wikiCode "Q30" .
+
+
+###  http://www.semanticweb.org/wattTours/WashingtonDC
+wattTours:WashingtonDC rdf:type owl:NamedIndividual ,
+                                wattTours:Capital ;
+                       wattTours:capitalOf wattTours:UnitedStates ;
+                       wattTours:locatedIn wattTours:UnitedStates ;
+                       wattTours:name "WashingtonDC"@en ;
+                       wattTours:wikiCode "Q61" .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( wattTours:America
+                wattTours:Asia
+                wattTours:Europe
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( wattTours:AmericanTour
+                wattTours:AsianTour
+                wattTours:EuropeanTour
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
