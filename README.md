@@ -1,5 +1,5 @@
 ﻿# WattTours-Ontology
-This coursework involved developing an ontology in Protégé to represent the needs of a fictional tourist agency called WattTours.
+This coursework involved developing a SPARQL ontology in Protégé to represent the needs of a fictional tourist agency called WattTours.
 
 # About
 In Stage 1, each group member developed his own version of the ontology.
